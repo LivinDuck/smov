@@ -1,24 +1,3 @@
-import classNames from "classnames";
-import { Link, To, useNavigate } from "react-router-dom";
-
-import { NoUserAvatar, UserAvatar } from "@/components/Avatar";
-import { IconPatch } from "@/components/buttons/IconPatch";
-import { Icons } from "@/components/Icon";
-import { LinksDropdown } from "@/components/LinksDropdown";
-import { Lightbar } from "@/components/utils/Lightbar";
-import { useAuth } from "@/hooks/auth/useAuth";
-import { BlurEllipsis } from "@/pages/layouts/SubPageLayout";
-import { conf } from "@/setup/config";
-import { useBannerSize } from "@/stores/banner";
-
-import { BrandPill } from "./BrandPill";
-
-export interface NavigationProps {
-  bg?: boolean;
-  noLightbar?: boolean;
-  doBackground?: boolean;
-}
-
 export function Navigation(props: NavigationProps) {
   const bannerHeight = useBannerSize();
   const navigate = useNavigate();
@@ -45,7 +24,7 @@ export function Navigation(props: NavigationProps) {
         </div>
       ) : null}
 
-      {/* backgrounds - these are seperate because of z-index issues */}
+      {/* backgrounds - these are separate because of z-index issues */}
       <div
         className="fixed z-[20] pointer-events-none left-0 right-0 top-0 min-h-[150px]"
         style={{
@@ -61,18 +40,8 @@ export function Navigation(props: NavigationProps) {
           )}
         >
           {props.doBackground ? (
-            <div className="absolute w-full h-full inset-0 overflow-hidden">
-              <BlurEllipsis positionClass="absolute" />
-            </div>
+            <div className="absolute w-full bg-gradient-to-b from-background-main to-transparent" />
           ) : null}
-          <div className="opacity-0 absolute inset-0 block h-20 pointer-events-auto" />
-          <div
-            className={`${
-              props.bg ? "opacity-100" : "opacity-0"
-            } absolute inset-0 block h-24 bg-background-main transition-opacity duration-300`}
-          >
-            <div className="absolute -bottom-24 h-24 w-full bg-gradient-to-b from-background-main to-transparent" />
-          </div>
         </div>
       </div>
 
@@ -93,29 +62,6 @@ export function Navigation(props: NavigationProps) {
               >
                 <BrandPill clickable header />
               </Link>
-              <a
-                href={conf().DISCORD_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xl text-white tabbable rounded-full"
-              >
-                <IconPatch icon={Icons.DISCORD} clickable downsized />
-              </a>
-              <a
-                href={conf().GITHUB_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xl text-white tabbable rounded-full"
-              >
-                <IconPatch icon={Icons.GITHUB} clickable downsized />
-              </a>
-              <a
-                onClick={() => handleClick("/discover")}
-                rel="noreferrer"
-                className="text-xl text-white tabbable rounded-full"
-              >
-                <IconPatch icon={Icons.RISING_STAR} clickable downsized />
-              </a>
             </div>
             <div className="relative pointer-events-auto">
               <LinksDropdown>
